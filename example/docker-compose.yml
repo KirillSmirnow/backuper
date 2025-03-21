@@ -1,0 +1,23 @@
+services:
+  backuper:
+    build:
+      dockerfile: backuper.Dockerfile
+    restart: always
+    volumes:
+      - backup:/backup
+  postgres:
+    build:
+      dockerfile: postgres.Dockerfile
+    restart: always
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+  storage:
+    build:
+      dockerfile: storage.Dockerfile
+    restart: always
+    volumes:
+      - backup:/storage:ro
+volumes:
+  backup:

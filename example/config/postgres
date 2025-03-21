@@ -1,0 +1,5 @@
+when='*/2 * * * *'
+remote=root@postgres
+pre_command='pg_dump "postgresql://user:pass@localhost:5432/database" --file="/tmp/postgres" --format=custom --exclude-table=span'
+source=/tmp/postgres
+max_files=10

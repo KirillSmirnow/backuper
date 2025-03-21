@@ -1,0 +1,5 @@
+when='*/10 * * * *'
+remote=root@storage
+pre_command='tar zcf "/tmp/storage" -C "/storage" .'
+source=/tmp/storage
+max_files=3
