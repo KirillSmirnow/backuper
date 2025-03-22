@@ -1,0 +1,18 @@
+on:
+  push:
+    tags: [ "*.*.*" ]
+env:
+  registry: ghcr.io
+  tag: ${{ github.ref_name }}
+  username: kirillsmirnow
+  password: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          export image="$registry/$username/backuper"
+          docker build -t $image:$tag src
+          echo "$password" | docker login $registry -u $username --password-stdin
+          docker push $image:$tag
