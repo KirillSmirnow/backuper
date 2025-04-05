@@ -10,11 +10,11 @@ DIR='$BACKUP_DIR/$name'
 mkdir -p \"\$DIR\"
 
 log 'Executing pre command'
-ssh -o StrictHostKeyChecking=no "$remote" "$pre_command" || exit 1
+ssh -o StrictHostKeyChecking=no -p "${remote_port:-22}" "$remote" "$pre_command" || exit 1
 
 log 'Copying file'
 target_file=\"\$DIR/\$(date -u \"+%F_%H-%M-%S.bkp\")\"
-scp "$remote:$source" \"\$target_file\" || exit 1
+scp -P "${remote_port:-22}" "$remote:$source" \"\$target_file\" || exit 1
 log \"Backup created: \$target_file\"
 
 total_files=\"\$(ls -1 \"\$DIR\"/*.bkp | wc -l)\"
