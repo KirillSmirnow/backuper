@@ -38,6 +38,7 @@ COPY config /config
 ```sh
 when='0 */2 * * *'                                     # every 2 hours at 00 minutes
 remote=user@example.com                                # connect to user@example.com
+remote_port=2222                                       # specify ssh port if different from 22
 pre_command='tar zcf "/tmp/backup" -C "/documents" .'  # archive a folder there
 source=/tmp/backup                                     # fetch the archive
 max_files=10                                           # retain no more than 10 backups
